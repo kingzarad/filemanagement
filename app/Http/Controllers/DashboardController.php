@@ -13,7 +13,9 @@ class DashboardController extends Controller
     public function profile()
     {
         $user = User::find(Auth::user()->id);
-        return view('components.profile', ['users' => $user]);
+        return response()->view('components.profile', ['users' => $user])->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+        ->header('Pragma', 'no-cache')
+        ->header('Expires', '0');
     }
 
     public function update(User $id)

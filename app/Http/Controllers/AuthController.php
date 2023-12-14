@@ -11,8 +11,9 @@ class AuthController extends Controller
 {
     public function Index()
     {
-
-        return view('components.users', ['users' => User::orderBy('created_at', 'DESC')->get()]);
+        return response()->view('components.users', ['users' => User::orderBy('created_at', 'DESC')->get()])->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+        ->header('Pragma', 'no-cache')
+        ->header('Expires', '0');
     }
 
     public function authenticate()
@@ -145,11 +146,22 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->logout();
-        return redirect()->route('login');
+        header("Cache-Control: no-cache, no-store, must-revalidate");
+        header("Pragma: no-cache");
+        header("Expires:0");
+        header("Content-Type:text/html");
+        return redirect()->route('login')->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+        ->header('Pragma', 'no-cache')
+        ->header('Expires', '0');
     }
 
     public function Login()
     {
-        return view('login');
+        if(auth()->check()){
+            return redirect()->route('dashboard');
+        }
+        return response()->view('login')->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+        ->header('Pragma', 'no-cache')
+        ->header('Expires', '0');
     }
 }

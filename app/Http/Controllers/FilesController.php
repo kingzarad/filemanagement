@@ -13,11 +13,14 @@ class FilesController extends Controller
 {
     public function Index()
     {
-        return view('dashboard', [
+
+        return response()->view('dashboard', [
             'categories' => Categories::orderBy('created_at', 'DESC')->get(),
             'files' => Files::orderBy('created_at', 'DESC')->get(),
             'users_list' => User::orderBy('created_at', 'DESC')->get(),
-        ]);
+        ])->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', '0');
     }
 
 
