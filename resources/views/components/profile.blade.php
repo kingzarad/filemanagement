@@ -13,6 +13,7 @@
                 </div>
 
                 <div class="mx-3">
+                    @include('shared.error')
                     @include('shared.success')
                 </div>
                 <form method="POST" action="{{ route('profile.update', $users->id) }}" id="updateUsersForm">

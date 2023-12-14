@@ -42,6 +42,10 @@ class DashboardController extends Controller
         $users->username = request('username');
         $users->user_type = request('usertype_sub');
 
+        if (request('oldpassword') && !Hash::check(request('oldpassword'), $users->password)) {
+            return redirect()->back()->withErrors(['oldpassword' => 'The old password is incorrect.']);
+        }
+
         if (request('newpassword')) {
             // Update the password only if a new password is provided
             $users->password = Hash::make(request('newpassword'));

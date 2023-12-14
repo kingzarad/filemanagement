@@ -3,8 +3,8 @@
 @section('content')
     <div class="row mt-5">
         <div class="col"></div>
-        <div class="col">
-            <div class="card mt-5">
+        <div class="col mb-5">
+            <div class="card mt-5 mb-5">
                 <div class="card-title p-2" style="background: #97ADBD">
                     <div class="d-flex justify-content-center">
                         <h5 class="text-white p-1 mt-1">Administrator | Login</h5>
