@@ -3,7 +3,10 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FilesController;
+use App\Http\Controllers\MailController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -18,12 +21,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/send', [MailController::class, 'index'])->name('send');
 
 Route::get('/login', [AuthController::class, 'Login'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate']);
 Route::post('/login/populate', [AuthController::class, 'superstore'])->name('populate');
 
 Route::middleware(['auth'])->group(function () {
+
+    Route::get('/task', [TaskController::class, 'Index'])->name('task');
+    Route::get('/employee', [EmployeeController::class, 'Index'])->name('employee');
+    Route::get('/employee/add', [EmployeeController::class, 'add'])->name('employee.form');
+    Route::post('/employee/add', [EmployeeController::class, 'store'])->name('employee.store');
+    Route::get('/employee/edit/{id}', [EmployeeController::class, 'show'])->name('employee.show');
+    Route::put('/employee/update/{employee}', [EmployeeController::class, 'update'])->name('employee.update');
+    Route::delete('/employee/delete/{id}', [EmployeeController::class, 'destroy'])->name('employee.destroy');
+
 
     // route for categories
     Route::get('/category', [CategoryController::class, 'Index'])->name('category');
@@ -53,6 +66,4 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
     Route::put('/profile/update/{id}', [DashboardController::class, 'update'])->name('profile.update');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
 });
-

@@ -22,7 +22,12 @@
                                 class="{{ request()->is('/') || request()->is('files*') ? 'active-navbar' : '' }} ">File
                                 Management</span></a>
                     </li>
-
+                    <li class="nav-item dropdown account u-pro">
+                        <a class="nav-link dropdown-toggle waves-effect waves-dark  profile-pic"
+                            href="{{ route('task') }}"> <span
+                                class="{{ request()->is('task') || request()->is('task') ? 'active-navbar' : '' }} ">
+                                Task</span></a>
+                    </li>
                     <li class="nav-item dropdown account u-pro">
                         <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="#"
                             id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span
@@ -30,9 +35,13 @@
                         <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
                             <li>
                                 <a class="btn btn-sm btn-outline m-2 btn-drop waves-effect waves-dark "
-                                    href="{{ route('category') }}"><span>Category</span> </a>
+                                    href="{{ route('employee') }}"><span>Employee</span> </a>
                             </li>
                             <li>
+                                <a class="btn btn-sm btn-outline m-2 btn-drop waves-effect waves-dark "
+                                    href="{{ route('category') }}"><span>Category</span> </a>
+                            </li>
+                            <li class="d-none">
                                 @if (Auth::user()->user_type == 'superadmin')
                                     <a class="btn btn-sm btn-outline m-2 btn-drop waves-effect waves-dark "
                                         href="{{ route('users') }}"><span>Users</span> </a>
