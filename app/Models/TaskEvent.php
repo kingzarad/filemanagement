@@ -13,8 +13,14 @@ class TaskEvent extends Model
         'name',
         'start_time',
         'start_date',
-        'end_date'
+        'end_date',
+        'position_id'
     ];
 
     use HasFactory;
+
+    public function position()
+    {
+        return $this->belongsTo(Position::class, 'position_id', 'id');
+    }
 }

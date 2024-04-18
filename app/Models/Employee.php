@@ -13,6 +13,16 @@ class Employee extends Model
     protected $fillable = [
         'name',
         'email',
-        'position'
+        'position_id'
     ];
+
+    public function position()
+    {
+        return $this->belongsTo(Position::class, 'position_id', 'id');
+    }
+
+    public function routeNotificationFor()
+    {
+        return $this->email;
+    }
 }

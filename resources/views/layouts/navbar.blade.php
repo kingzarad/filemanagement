@@ -23,11 +23,23 @@
                                 Management</span></a>
                     </li>
                     <li class="nav-item dropdown account u-pro">
-                        <a class="nav-link dropdown-toggle waves-effect waves-dark  profile-pic"
-                            href="{{ route('task') }}"> <span
-                                class="{{ request()->is('task') || request()->is('task') ? 'active-navbar' : '' }} ">
-                                Task</span></a>
+                        <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="#"
+                            id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span
+                                class="{{ request()->is('task*') || request()->is('task*') ? 'active-navbar' : '' }}">Task</span></a>
+                        <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
+
+                            <li>
+                                <a class="btn btn-sm btn-outline m-2 btn-drop waves-effect waves-dark "
+                                    href="{{ route('taskCalendar') }}"><span>Task Calendar</span> </a>
+                            </li>
+                            <li>
+                                <a class="btn btn-sm btn-outline m-2 btn-drop waves-effect waves-dark "
+                                    href="{{ route('taskHistory') }}"><span>Task History</span> </a>
+                            </li>
+
+                        </ul>
                     </li>
+
                     <li class="nav-item dropdown account u-pro">
                         <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="#"
                             id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span
@@ -36,6 +48,10 @@
                             <li>
                                 <a class="btn btn-sm btn-outline m-2 btn-drop waves-effect waves-dark "
                                     href="{{ route('employee') }}"><span>Employee</span> </a>
+                            </li>
+                            <li>
+                                <a class="btn btn-sm btn-outline m-2 btn-drop waves-effect waves-dark "
+                                    href="{{ route('position') }}"><span>Position</span> </a>
                             </li>
                             <li>
                                 <a class="btn btn-sm btn-outline m-2 btn-drop waves-effect waves-dark "

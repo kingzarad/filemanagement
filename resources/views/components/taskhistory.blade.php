@@ -12,11 +12,8 @@
                         <div class="card-body">
                             <h4 class="card-title m-0 p-0">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="m-0 font-weight-bold"><strong>Employee</strong></h5>
-                                    @if (Auth::user()->user_type == 'superadmin')
-                                        <a class="btn btn-re" href="{{ route('employee.form') }}"><i
-                                                class="fas fa-plus-square"></i>&nbsp;Employee</a>
-                                    @endif
+                                    <h5 class="m-0 font-weight-bold"><strong>Task History</strong></h5>
+
                                 </div>
                             </h4>
                             <div class="table-responsive">
@@ -24,9 +21,11 @@
                                     <thead class="thead-custom text-white">
                                         <tr>
                                             <th>#</th>
-                                            <th>Name</th>
+                                            <th>Title</th>
+                                            <th>Time</th>
+                                            <th>Date</th>
                                             <th>Position</th>
-                                            <th>Email</th>
+                                            <th>Status</th>
                                             <th>Created At</th>
                                             @if (Auth::user()->user_type == 'superadmin')
                                                 <th>Action</th>
@@ -39,6 +38,8 @@
                                             <th></th>
                                             <th></th>
                                             <th></th>
+                                            <th></th>
+                                            <th></th>
                                             <th>Created At</th>
                                             @if (Auth::user()->user_type == 'superadmin')
                                                 <th></th>
@@ -46,24 +47,36 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        @foreach ($employee as $index => $item)
+                                        @foreach ($taskevent as $index => $item)
                                             <tr>
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>{{ $item->name }}</td>
+                                                <td>{{ date('g:i A', strtotime($item->start_time)) }}</td>
+                                                <td>
+                                                    @if ($item->start_date === $item->end_date)
+                                                        {{ date('F j, Y', strtotime($item->start_date)) }}
+                                                    @else
+                                                        {{ date('F j, Y', strtotime($item->start_date)) }} -
+                                                        {{ date('F j, Y', strtotime($item->end_date)) }}
+                                                    @endif
+
+                                                </td>
                                                 <td>{{ $item->position->name }}</td>
-                                                <td>{{ $item->email }}</td>
+                                                <td>
+                                                    @if ($item->status == 0)
+                                                        NOT SENT
+                                                    @else
+                                                            SENT
+                                                    @endif
+                                                </td>
                                                 <td>{{ $item->created_at }}</td>
                                                 @if (Auth::user()->user_type == 'superadmin')
                                                     <td class="text-center">
 
                                                         <div class="d-flex">
-                                                            <a class="btn text-success"
-                                                                href="{{ route('employee.show', $item->id) }}">
-                                                                <i class="fas fa-pencil-alt"></i>
-                                                            </a>
 
                                                             <form id="deleteForm_{{ $item->id }}"
-                                                                action="{{ route('employee.destroy', $item->id) }}"
+                                                                action="{{ route('taskHistory.destroy', $item->id) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -93,7 +106,7 @@
 @endsection
 <script>
     function confirmAndSubmit(itemId) {
-        if (confirm('Are you sure you want to delete this category?')) {
+        if (confirm('Are you sure you want to delete this task history?')) {
             document.getElementById('deleteForm_' + itemId).submit();
         }
     }

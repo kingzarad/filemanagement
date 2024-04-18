@@ -36,14 +36,16 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="position" class="form-label">Position</label>
-                                    <select name="position" class="form-select">
-                                        <option value="" @if ($employee->position == '') selected @endif>Choose...</option>
-                                        <option value="Chairman" @if ($employee->position == 'Chairman') selected @endif>Chairman</option>
-                                        <option value="Staff" @if ($employee->position == 'Staff') selected @endif>Staff</option>
-                                        <option value="SK" @if ($employee->position == 'SK') selected @endif>SK</option>
+                                    <label for="position" class="form-label"><strong>Position</strong></label>
+
+                                    <select class="form-select"  name="position_id" >
+                                        <option value="" selected></option>
+                                        @foreach ($position as $item)
+                                            <option value="{{ $item->id }}"  @if ($employee->position->name == $item->name) selected @endif>{{ ucfirst($item->name) }}</option>
+                                        @endforeach
                                     </select>
-                                    @error('position')
+
+                                    @error('position_id')
                                         <span class="d-block text-danger fs-6 mt-1">{{ $message }}</span>
                                     @enderror
                                 </div>

@@ -17,6 +17,9 @@ return new class extends Migration
             $table->time('start_time');
             $table->date('start_date');
             $table->date('end_date');
+            $table->unsignedBigInteger('position_id');
+            $table->foreign('position_id')->references('id')->on('position')->onDelete('cascade');
+            $table->tinyInteger('status')->default(0)->comment('0=notsent, 1=sent');
             $table->timestamps();
         });
     }

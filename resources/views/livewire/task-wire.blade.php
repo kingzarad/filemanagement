@@ -35,7 +35,7 @@
                 events: @json($events),
                 eventClick: function(info) {
                     console.log(info);
-                    alert(0);
+
                 }
             });
 

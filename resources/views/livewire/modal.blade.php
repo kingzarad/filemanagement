@@ -5,7 +5,7 @@
         <form wire:submit.prevent="saveTask">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
@@ -17,6 +17,21 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
 
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Select a position to send a notification to all
+                            employees for that position.</label>
+
+                        <select class="form-select" wire:model="position_id">
+                            <option value="" selected></option>
+                            @foreach ($position as $item)
+                                <option value="{{ $item->id }}">{{ ucfirst($item->name) }}</option>
+                            @endforeach
+                        </select>
+
+                        @error('position_id')
+                            <span class="d-block text-danger fs-6 mt-1">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
@@ -53,6 +68,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

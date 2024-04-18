@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Position;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -20,13 +21,13 @@ class EmployeeController extends Controller
         request()->validate([
             'name' => 'required|min:5|max:50',
             'email' => 'required|email',
-            'position' => 'required'
+            'position_id' => 'required'
         ]);
 
         $emp = Employee::create([
             'name' => request()->get('name'),
             'email' => request()->get('email'),
-            'position' => request()->get('position')
+            'position_id' => request()->get('position_id')
         ]);
 
         $emp->save();
@@ -44,12 +45,12 @@ class EmployeeController extends Controller
         request()->validate([
             'name' => 'required|min:5|max:50',
             'email' => 'required|email',
-            'position' => 'required'
+            'position_id' => 'required'
         ]);
 
         $employee->name = request()->get('name', '');
         $employee->email = request()->get('email', '');
-        $employee->position = request()->get('position', '');
+        $employee->position_id = request()->get('position_id', '');
         $employee->save();
         return back()->with('success', 'Employee updated successfully!');
 
@@ -57,11 +58,11 @@ class EmployeeController extends Controller
 
     public function show(Employee $id)
     {
-        return view('forms.update_employee', ['employee' => $id]);
+        return view('forms.update_employee', ['employee' => $id,'position' => Position::orderBy('created_at', 'DESC')->get()]);
     }
 
     public function add()
     {
-        return view('forms.create_employee');
+        return view('forms.create_employee', ['position' => Position::orderBy('created_at', 'DESC')->get()]);
     }
 }

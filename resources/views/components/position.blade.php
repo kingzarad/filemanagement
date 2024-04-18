@@ -12,10 +12,10 @@
                         <div class="card-body">
                             <h4 class="card-title m-0 p-0">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="m-0 font-weight-bold"><strong>Employee</strong></h5>
+                                    <h5 class="m-0 font-weight-bold"><strong>Position</strong></h5>
                                     @if (Auth::user()->user_type == 'superadmin')
-                                        <a class="btn btn-re" href="{{ route('employee.form') }}"><i
-                                                class="fas fa-plus-square"></i>&nbsp;Employee</a>
+                                        <a class="btn btn-re" href="{{ route('position.form') }}"><i
+                                                class="fas fa-plus-square"></i>&nbsp;Position</a>
                                     @endif
                                 </div>
                             </h4>
@@ -25,8 +25,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Email</th>
+
                                             <th>Created At</th>
                                             @if (Auth::user()->user_type == 'superadmin')
                                                 <th>Action</th>
@@ -37,8 +36,6 @@
                                         <tr>
                                             <th></th>
                                             <th></th>
-                                            <th></th>
-                                            <th></th>
                                             <th>Created At</th>
                                             @if (Auth::user()->user_type == 'superadmin')
                                                 <th></th>
@@ -46,24 +43,23 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        @foreach ($employee as $index => $item)
+                                        @foreach ($position as $index => $item)
                                             <tr>
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>{{ $item->name }}</td>
-                                                <td>{{ $item->position->name }}</td>
-                                                <td>{{ $item->email }}</td>
+
                                                 <td>{{ $item->created_at }}</td>
                                                 @if (Auth::user()->user_type == 'superadmin')
                                                     <td class="text-center">
 
                                                         <div class="d-flex">
                                                             <a class="btn text-success"
-                                                                href="{{ route('employee.show', $item->id) }}">
+                                                                href="{{ route('position.show', $item->id) }}">
                                                                 <i class="fas fa-pencil-alt"></i>
                                                             </a>
 
                                                             <form id="deleteForm_{{ $item->id }}"
-                                                                action="{{ route('employee.destroy', $item->id) }}"
+                                                                action="{{ route('position.destroy', $item->id) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -93,7 +89,7 @@
 @endsection
 <script>
     function confirmAndSubmit(itemId) {
-        if (confirm('Are you sure you want to delete this category?')) {
+        if (confirm('Are you sure you want to delete this position?')) {
             document.getElementById('deleteForm_' + itemId).submit();
         }
     }
