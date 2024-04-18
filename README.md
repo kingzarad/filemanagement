@@ -1,22 +1,12 @@
 
-## Install Composer Dependencies
-composer install
+### HOW TO SETUP?
 
-## Install NPM Dependencies
-npm install
-
-## Create a copy of your .env file
-cp .env.example .env
-
-
-## Generate an app encryption key
-php artisan key:generate
-
-## Create an empty database for our application
-
-##  In the .env file, add database information to allow Laravel to connect to the database
-
-
-## Migrate the database
-php artisan migrate
-
+- **1.Run git clone**
+- **2.Run composer install**
+- **3.Run cp .env.example .env**
+- **4.Configure for database name and smpt credentials in .env**
+- **5.Run php artisan key:generate**
+- **6.Run php artisan migrate**
+- **7.Run php artisan db:seed (note: for admin account)**
+- **8.Run php artisan serve**
+- **9.Go to link localhost:8000**
