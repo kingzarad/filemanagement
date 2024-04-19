@@ -19,6 +19,14 @@
 
                     </div>
                     <div class="mb-3">
+                        <label for="name" class="form-label">Place/Venue</label>
+                        <input type="text" wire:model="place" class="form-control" id="place">
+                        @error('place')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+
+                    </div>
+                    <div class="mb-3">
                         <label for="name" class="form-label">Select a position to send a notification to all
                             employees for that position.</label>
 
@@ -33,6 +41,7 @@
                             <span class="d-block text-danger fs-6 mt-1">{{ $message }}</span>
                         @enderror
                     </div>
+
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="mb-3">

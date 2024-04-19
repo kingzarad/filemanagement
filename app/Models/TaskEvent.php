@@ -14,6 +14,7 @@ class TaskEvent extends Model
         'start_time',
         'start_date',
         'end_date',
+        'place',
         'position_id'
     ];
 

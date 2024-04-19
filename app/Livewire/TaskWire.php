@@ -10,7 +10,7 @@ class TaskWire extends Component
 {
     public $date, $events;
     public $name;
-    public $start_time, $start_date, $end_date, $position_id;
+    public $start_time, $start_date, $end_date, $place, $position_id;
 
     public function mount()
     {
@@ -37,6 +37,7 @@ class TaskWire extends Component
     {
         $validatedData = $this->validate([
             'name' => 'required|string|min:3',
+            'place' => 'required|string|min:3',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
             'start_time' => 'required',
@@ -58,6 +59,7 @@ class TaskWire extends Component
 
         $taskData = [
             'name' => $validatedData['name'],
+            'place' => $validatedData['place'],
             'start_date' => $validatedData['start_date'],
             'end_date' => $validatedData['end_date'],
             'start_time' => $validatedData['start_time'],
@@ -75,7 +77,8 @@ class TaskWire extends Component
             'name',
             'start_time',
             'start_date',
-            'end_date'
+            'end_date',
+            'place'
         ]);
     }
 
