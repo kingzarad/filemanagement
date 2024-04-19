@@ -13,6 +13,7 @@
                 </div>
                 <div class="mx-3">
                     @include('shared.success')
+                    @include('shared.error')
                 </div>
                 <form method="POST" action="{{ route('employee.update', $employee->id) }}" id="createCategoryModalForm">
                     @csrf

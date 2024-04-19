@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 
 class PositionController extends Controller
 {
-    public function Index(){
-        return response()->view('components.position', ['position' => Position::orderBy('created_at', 'DESC')->get()]
+    public function Index()
+    {
+        return response()->view(
+            'components.position',
+            ['position' =>  Position::where('name', '!=', 'All')->orderBy('created_at', 'DESC')->get()]
         )->header('Cache-Control', 'no-cache, no-store, must-revalidate')
             ->header('Pragma', 'no-cache')
             ->header('Expires', '0');
@@ -17,9 +20,23 @@ class PositionController extends Controller
     public function store()
     {
 
+
         request()->validate([
-            'name' => 'required|min:5|max:50',
+            'name' => [
+                'required',
+                'min:5',
+                'max:50',
+                'regex:/^(?!.*(\w)\1{2,}).+$/'
+            ],
+        ], [
+            'name.regex' => 'The name field cannot contain repeated characters.',
         ]);
+
+        $existing = Position::where('name', request()->get('name'))->exists();
+
+        if ($existing) {
+            return redirect()->route('position.form')->with('error', 'Position with this name already exists.');
+        }
 
         $emp = Position::create([
             'name' => request()->get('name')
@@ -45,7 +62,6 @@ class PositionController extends Controller
         $position->name = request()->get('name', '');
         $position->save();
         return back()->with('success', 'Position updated successfully!');
-
     }
 
     public function show(Position $id)

@@ -49,7 +49,7 @@
                                                 <td>{{ $item->name }}</td>
 
                                                 <td>{{ $item->created_at }}</td>
-                                                @if (Auth::user()->user_type == 'superadmin')
+                                                @if (Auth::user()->user_type == 'superadmin' &&  $item->name != "All")
                                                     <td class="text-center">
 
                                                         <div class="d-flex">

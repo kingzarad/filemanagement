@@ -30,18 +30,30 @@ class TaskWire extends Component
                 'end' => $endDateTime,
             ];
         })->toArray();
-
     }
 
     public function saveTask()
     {
         $validatedData = $this->validate([
-            'name' => 'required|string|min:3',
-            'place' => 'required|string|min:3',
+            'name' => [
+                'required',
+                'min:5',
+                'max:50',
+                'regex:/^(?!.*\d)(?!.*(\w)\1{2,}).+$/'
+            ],
+            'place' => [
+                'required',
+                'string',
+                'min:3',
+                'regex:/^(?!.*(\w)\1{2,}).+$/'
+            ],
             'start_date' => 'required|date',
             'end_date' => 'required|date',
             'start_time' => 'required',
             'position_id' => 'required',
+        ], [
+            'name.regex' => 'The name field cannot contain numbers or repeated characters.',
+            'place.regex' => 'The place field cannot contain repeated characters.'
         ]);
 
         $existing = TaskEvent::where('name', $validatedData['name'])

@@ -35,7 +35,7 @@ class AuthController extends Controller
     public function store()
     {
         request()->validate([
-            'name' => 'required|min:5|max:50',
+            'name' => ['required', 'min:5', 'max:50', 'regex:/^(?!.*(.).*\1)(?!.*[^a-zA-Z0-9\s]).*$/'],
             'username' => [
                 'required',
                 'min:5',
@@ -55,6 +55,7 @@ class AuthController extends Controller
             'username.unique' => 'The username is already taken.',
             'email.unique' => 'The email is already taken.',
             'cpassword.same' => 'The password confirmation does not match.',
+            'name.regex' => 'The :attribute field must not contain repeated characters and special characters.',
         ]);
 
         if (request('usertype') === 'superadmin') {
@@ -93,7 +94,7 @@ class AuthController extends Controller
     {
 
         request()->validate([
-            'name' => 'required|min:5|max:50',
+            'name' => ['required', 'min:5', 'max:50', 'regex:/^(?!.*(.).*\1)(?!.*[^a-zA-Z0-9\s]).*$/'],
             'username' => [
                 'required',
                 'min:5',
@@ -107,6 +108,8 @@ class AuthController extends Controller
 
             'oldpassword' => 'nullable|min:5|max:50',
             'newpassword' => request('oldpassword') ? 'required|min:5|max:50' : 'nullable|min:5|max:50',
+        ], [
+            'name.regex' => 'The :attribute field must not contain repeated characters and special characters.',
         ]);
 
 
